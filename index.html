@@ -682,9 +682,16 @@
             orderTimeLeft = 10.0; // 10秒間
             bowl = [];
 
+            const imgRegex = /<img\b[^>]*>/i;
             // UIの更新
             orderNameEl.textContent = currentOrder.name;
-            orderIconEl.textContent = currentOrder.icon;
+            // imgタグの場合、innerHTMLを書き換え。
+            orderIconEl.innerHTML = '';
+            if(imgRegex.test(currentOrder.icon)){
+                orderIconEl.innerHTML = currentOrder.icon;
+            }else{
+                orderIconEl.textContent = currentOrder.icon;
+            }
             recipeStatusEl.textContent = "集めよう！";
             recipeStatusEl.className = "text-amber-600 font-bold";
 
